@@ -1,0 +1,154 @@
+body {
+    font-family: 'Arial', sans-serif;
+    background-image: url('/vector-background.jpg');
+    background-size: cover;
+    background-position: center center;
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    display: flex;
+    flex-direction: column; /* child elemetns arranged top to bottom */
+}
+
+/* 1st child elemetn arranged at the very top */
+.top-bar {
+    background-color: black;
+    color: white;
+    display: flex;
+    justify-content: space-between; /* Distribute child elements evenly */
+    align-items: center; /* aligns child elemtns along the cross axis(left to right) */
+    height: 2cm; /* Height of the black bar */
+    padding-left: 20px;
+    padding-right: 20px;
+    position: static; /* change to relative if the child elements (left/center/right containers etc.) uses position: absolute */
+}
+
+/* logout button */
+.left-container {
+    flex: 1;  /* Allow the left container to grow */
+    display: flex;
+    justify-content: flex-start; /* Align to the far left */
+}
+
+/* logged-in user's email */
+.center-container {
+    flex: 2;  /* Allow the center container to grow twice more than left and right containers */
+    display: flex;
+    justify-content: center; /* Center the content inside */
+    align-items: center;  /* Vertically center the content */
+}
+
+/* new stock button */
+.right-container {
+    flex: 1;  /* Allow the right container to grow */
+    display: flex;
+    justify-content: flex-end; /* Align to the far right */
+}
+
+
+.email-header {
+    font-size: 20px;
+    margin: 10;
+    font-weight: bold;
+    text-align: center;
+}
+
+/* logout and save button */
+.button {
+    padding: 10px 15px;
+    background-color: gray;
+    color: white;
+    border: none;
+    border-radius: 25px;
+    font-size: 15px;
+    cursor: pointer;
+}
+
+.button:hover {
+    background-color: darkgray;
+}
+
+/* slightly smaller than save and logout button */
+.delete-button {
+    padding: 8px 12px;
+    background-color: gray;
+    color: white;
+    border: none;
+    border-radius: 20px;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.delete-button:hover {
+    background-color: darkgray;
+}
+/* Delete button aligned to the right, absolute to stock container */
+.delete-form {
+    position: absolute;
+    bottom: 8px;
+    right: 20px;
+}
+
+
+
+
+/* Stocks List */
+.stocks-list {
+    display: flex;
+    flex-direction: row; /* child elements arranged left to right */
+    flex-wrap: wrap; /* Allows items to wrap to the next line if needed */
+    gap: 20px; /* 20px gap between stock item containers */
+    padding: 20px;
+    justify-content: center; /* centers the stock items in the stock list container */
+}
+
+/* each stock */
+.stock-item {
+    background-color: rgba(0, 0, 0, 0.8); /* slightly transparent */
+    padding: 15px;
+    width: 300px; /* fixed width for each stock item */
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column; /* arrange children top down */
+    justify-content: space-between; /* every child item is evenly spaced */
+    align-items: flex-start; /* flush each child to the left */
+    position: relative;
+}
+
+.stock-info {
+    color: white;
+    flex-grow: 1; /* let stock info take the whole space(its the only one here besides delete button) */
+}
+
+
+
+.company-name {
+    color: lightgray;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.stock-ticker {
+    color:lightgray;
+    font-size: 16px;
+    margin-top: 5px;
+}
+
+.pull-date {
+    color: lightgray;
+    font-size: 14px;
+    margin-top: 5px;
+}
+
+
+
+
+/* Empty portfolio message */
+.empty-message {
+    color: white;
+    font-size: 20px;
+    text-align: center;
+    margin-top: 30px;
+}
+
+

@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Query</title>
+    <link rel="stylesheet" href="/information.css">
+</head>
+<body>
+
+    <!-- top-bar/back-button/search-container/search-button/save-button/error-message -->
+    <div class="top-bar">
+        <!-- Back button on the far left -->
+        <a href="/stocks" class="back-button">Back</a>
+    
+        <!-- Search input and button in the middle -->
+        <div class="search-container">
+            <form method="POST" action="/stocks/query">
+                <input type="text" id="query" name="query" placeholder="Search Ticker..." required>
+                <button type="submit" class="search-button">Search</button>
+            </form>
+    
+            <!-- Error message -->
+            <div class="error-message" th:if="${errorMessage}">
+                <p th:text="${errorMessage}"></p>
+            </div>
+        </div>
+    
+        <!-- Save button on the far right -->
+        <form method="POST" action="/stocks/save">
+            <button type="submit" class="save-button">Save</button>
+        </form>
+    </div>
+
+
+     <!-- Display Stock Information -->
+     <div th:if="${stock != null and stock.mi != null}" class="stock-info">
+        <h1>Stock: <span th:text="${stock.mi.ticker}"></span></h1>
+        <p><strong>Company Name:</strong> <span th:text="${stock.mi.companyName}"></span></p>
+        <p><strong>Last Closing Price:</strong> $<span th:text="${#numbers.formatDecimal(stock.mi.lastPrice, 0, 2)}"></span></p>
+        <p><strong>Information pulled on:</strong> <span th:text="${#dates.format(stock.mi.today, 'MM-dd-yyyy')}"></span></p>
+        <p><strong>Fiscal Year:</strong> <span th:text="${stock.mi.fiscalYear}"></span></p>
+        <p><strong>Fiscal Quarter:</strong> <span th:text="${stock.mi.quarter}"></span></p>
+        <p><strong>Document Type:</strong> <span th:text="${stock.mi.documentType}"></span></p>
+        <p><strong>HTM url:</strong> 
+            <a th:if="${stock.mi.htm != null}" th:href="${stock.mi.htm}" target="_blank" th:text="${stock.mi.htm}"></a>
+        </p>    
+    </div>
+
+    <!-- Show ratio tables only if stock information is present -->
+    <div th:if="${stock !=null and stock.ar != null}">
+        <!-- Activity Ratios Table -->
+        <table>
+            <thead>
+                <tr>
+                    <th colspan="4">Activity Ratios</th>
+                </tr>
+                <tr>
+                    <th>Name</th>
+                    <th>Value</th>
+                    <th>Formula</th>
+                    <th>Description</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:if="${stock.ar != null and stock.ar.inventoryTurnover != null}">
+                    <td>Inventory Turnover</td>
+                    <td th:text="${#numbers.formatDecimal(stock.ar.inventoryTurnover, 0, 2)}"></td>
+                    <td class="math">Cost of Goods Sold / Average Inventory</td>
+                    <td>Measures how quickly inventory is sold and replaced over a year.</td>
+                </tr>
+                <tr th:if="${stock.ar != null and stock.ar.daysInventoryOnHand != null}">
+                    <td>Days Inventory on Hand</td>
+                    <td th:text="${#numbers.formatDecimal(stock.ar.daysInventoryOnHand, 0, 2)}"></td>
+                    <td class="math">365 / Inventory Turnover</td>
+                    <td>Indicates the average number of days inventory is held before being sold.</td>
+                </tr>
+                <tr th:if="${stock.ar != null and stock.ar.receivablesTurnover != null}">
+                    <td>Receivables Turnover</td>
+                    <td th:text="${#numbers.formatDecimal(stock.ar.receivablesTurnover, 0, 2)}"></td>
+                    <td class="math">Revenue / Average Accounts Receivable</td>
+                    <td>Measures how many times a company collects its average accounts receivable balance in a year.</td>
+                </tr>
+                <tr th:if="${stock.ar != null and stock.ar.daysSalesOutstanding != null}">
+                    <td>Days Sales Outstanding</td>
+                    <td th:text="${#numbers.formatDecimal(stock.ar.daysSalesOutstanding, 0, 2)}"></td>
+                    <td class="math">365 / Receivables Turnover</td>
+                    <td>Indicates the average number of days it takes for a company to collect its receivables.</td>
+                </tr>
+                <tr th:if="${stock.ar != null and stock.ar.payablesTurnover != null}">
+                    <td>Payables Turnover</td>
+                    <td th:text="${#numbers.formatDecimal(stock.ar.payablesTurnover, 0, 2)}"></td>
+                    <td class="math">Cost of Goods Sold / Average Accounts Payable</td>
+                    <td>Measures how often a company pays off its accounts payable in a year.</td>
+                </tr>
+                <tr th:if="${stock.ar != null and stock.ar.daysPayables != null}">
+                    <td>Days Payables</td>
+                    <td th:text="${#numbers.formatDecimal(stock.ar.daysPayables, 0, 2)}"></td>
+                    <td class="math">365 / Payables Turnover</td>
+                    <td>Indicates the average number of days a company takes to pay its accounts payable.</td>
+                </tr>
+                <tr th:if="${stock.ar != null and stock.ar.workingCapitalTurnover != null}">
+                    <td>Working Capital Turnover</td>
+                    <td th:text="${#numbers.formatDecimal(stock.ar.workingCapitalTurnover, 0, 2)}"></td>
+                    <td class="math">Revenue / Average Working Capital</td>
+                    <td>Measures how efficiently a company uses its working capital to generate revenue.</td>
+                </tr>
+                <tr th:if="${stock.ar != null and stock.ar.fixedAssetTurnover != null}">
+                    <td>Fixed Asset Turnover</td>
+                    <td th:text="${#numbers.formatDecimal(stock.ar.fixedAssetTurnover, 0, 2)}"></td>
+                    <td class="math">Revenue / Average Net Fixed Assets</td>
+                    <td>Measures how efficiently a company uses its fixed assets to generate revenue.</td>
+                </tr>
+                <tr th:if="${stock.ar != null and stock.ar.totalAssetTurnover != null}">
+                    <td>Total Asset Turnover</td>
+                    <td th:text="${#numbers.formatDecimal(stock.ar.totalAssetTurnover, 0, 2)}"></td>
+                    <td class="math">Revenue / Average Total Assets</td>
+                    <td>Measures how efficiently a company uses its total assets to generate revenue.</td>
+                </tr>
+            </tbody>
+        </table>
+        <!-- Liquidity Ratios Table -->
+        <table>
+            <thead>
+                <tr>
+                    <th colspan="4">Liquidity Ratios</th>
+                </tr>
+                <tr>
+                    <th>Name</th>
+                    <th>Value</th>
+                    <th>Formula</th>
+                    <th>Description</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:if="${stock.lr != null and stock.lr.currentRatio != null}">
+                    <td>Current Ratio</td>
+                    <td th:text="${#numbers.formatDecimal(stock.lr.currentRatio, 0, 2)}"></td>
+                    <td class="math">Current Assets / Current Liabilities</td>
+                    <td>Measures a company's ability to cover its short-term obligations with its short-term assets.</td>
+                </tr>
+                <tr th:if="${stock.lr != null and stock.lr.quickRatio != null}">
+                    <td>Quick Ratio</td>
+                    <td th:text="${#numbers.formatDecimal(stock.lr.quickRatio, 0, 2)}"></td>
+                    <td class="math">(Cash + Marketable Securities + Accounts Receivable) / Current Liabilities</td>
+                    <td>A stricter measure than the current ratio, excluding inventory from current assets.</td>
+                </tr>
+                <tr th:if="${stock.lr != null and stock.lr.cashRatio != null}">
+                    <td>Cash Ratio</td>
+                    <td th:text="${#numbers.formatDecimal(stock.lr.cashRatio, 0, 2)}"></td>
+                    <td class="math">(Cash + Marketable Securities) / Current Liabilities</td>
+                    <td>Measures a company's ability to cover its short-term liabilities with only its most liquid assets.</td>
+                </tr>
+                <tr th:if="${stock.lr != null and stock.lr.cashConverionCycle != null}">
+                    <td>Cash Conversion Cycle</td>
+                    <td th:text="${#numbers.formatDecimal(stock.lr.cashConverionCycle, 0, 2)}"></td>
+                    <td class="math">Days Sales Outstanding + Days Inventory on Hand - Days Payables</td>
+                    <td>Measures the time it takes for a company to convert its investments in inventory and accounts receivable into cash flows from sales.</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <!-- Profitability Ratios Table -->
+        <table>
+            <thead>
+                <tr>
+                    <th colspan="4">Profitability Ratios</th>
+                </tr>
+                <tr>
+                    <th>Name</th>
+                    <th>Value</th>
+                    <th>Formula</th>
+                    <th>Description</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:if="${stock.pr != null and stock.pr.grossProfitMargin != null}">
+                    <td>Gross Profit Margin</td>
+                    <td th:text="${#numbers.formatDecimal(stock.pr.grossProfitMargin, 0, 2)}"></td>
+                    <td class="math">Gross Profit / Revenue</td>
+                    <td>Measures the percentage of revenue that exceeds the cost of goods sold.</td>
+                </tr>
+                <tr th:if="${stock.pr != null and stock.pr.operatingProfitMargin != null}">
+                    <td>Operating Profit Margin</td>
+                    <td th:text="${#numbers.formatDecimal(stock.pr.operatingProfitMargin, 0, 2)}"></td>
+                    <td class="math">Operating Income / Revenue</td>
+                    <td>Measures the percentage of revenue remaining after paying for variable costs of production.</td>
+                </tr>
+                <tr th:if="${stock.pr != null and stock.pr.preTaxMargin != null}">
+                    <td>Pre-Tax Margin</td>
+                    <td th:text="${#numbers.formatDecimal(stock.pr.preTaxMargin, 0, 2)}"></td>
+                    <td class="math">Earnings Before Taxes / Revenue</td>
+                    <td>Measures a company's profitability before tax expenses.</td>
+                </tr>
+                <tr th:if="${stock.pr != null and stock.pr.netProfitMargin != null}">
+                    <td>Net Profit Margin</td>
+                    <td th:text="${#numbers.formatDecimal(stock.pr.netProfitMargin, 0, 2)}"></td>
+                    <td class="math">Net Profit / Revenue</td>
+                    <td>Measures the percentage of revenue that turns into profit after all expenses.</td>
+                </tr>
+                <tr th:if="${stock.pr != null and stock.pr.operatingROA != null}">
+                    <td>Operating Return on Assets</td>
+                    <td th:text="${#numbers.formatDecimal(stock.pr.operatingROA, 0, 2)}"></td>
+                    <td class="math">Operating Income / Average Total Assets</td>
+                    <td>Measures the efficiency of a company's operations in generating profit relative to its assets.</td>
+                </tr>
+                <tr th:if="${stock.pr != null and stock.pr.roAssets != null}">
+                    <td>Return on Assets</td>
+                    <td th:text="${#numbers.formatDecimal(stock.pr.roAssets, 0, 2)}"></td>
+                    <td class="math">Net Income / Average Total Assets</td>
+                    <td>Measures how effectively a company is using its assets to generate profits.</td>
+                </tr>
+                <tr th:if="${stock.pr != null and stock.pr.roCapital != null}">
+                    <td>Return on Capital</td>
+                    <td th:text="${#numbers.formatDecimal(stock.pr.roCapital, 0, 2)}"></td>
+                    <td class="math">Operating Income / (Total Debt + Total Equity)</td>
+                    <td>Measures the efficiency of a company's operations in generating profit relative to its capital.</td>
+                </tr>
+                <tr th:if="${stock.pr != null and stock.pr.roTotalEquity != null}">
+                    <td>Return on Total Equity</td>
+                    <td th:text="${#numbers.formatDecimal(stock.pr.roTotalEquity, 0, 2)}"></td>
+                    <td class="math">Net Income / Average Shareholder's Equity</td>
+                    <td>Measures how effectively a company generates profits from its equity financing.</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <!-- Solvency Ratios Table -->
+        <table>
+            <thead>
+                <tr>
+                    <th colspan="4">Solvency Ratios</th>
+                </tr>
+                <tr>
+                    <th>Name</th>
+                    <th>Value</th>
+                    <th>Formula</th>
+                    <th>Description</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:if="${stock.sr != null and stock.sr.debtToAssets != null}">
+                    <td>Debt to Assets</td>
+                    <td th:text="${#numbers.formatDecimal(stock.sr.debtToAssets, 0, 2)}"></td>
+                    <td class="math">Total Debt / Total Assets</td>
+                    <td>Measures the proportion of a company’s assets financed by debt.</td>
+                </tr>
+                <tr th:if="${stock.sr != null and stock.sr.debtToCapital != null}">
+                    <td>Debt to Capital</td>
+                    <td th:text="${#numbers.formatDecimal(stock.sr.debtToCapital, 0, 2)}"></td>
+                    <td class="math">Total Debt / (Total Debt + Total Equity)</td>
+                    <td>Measures the proportion of a company’s capital structure that is financed by debt.</td>
+                </tr>
+                <tr th:if="${stock.sr != null and stock.sr.debtToEquity != null}">
+                    <td>Debt to Equity</td>
+                    <td th:text="${#numbers.formatDecimal(stock.sr.debtToEquity, 0, 2)}"></td>
+                    <td class="math">Total Debt / Shareholder's Equity</td>
+                    <td>Measures the relative proportion of debt and equity in financing a company's assets.</td>
+                </tr>
+                <tr th:if="${stock.sr != null and stock.sr.financialLeverage != null}">
+                    <td>Equity Multiplier</td>
+                    <td th:text="${#numbers.formatDecimal(stock.sr.financialLeverage, 0, 2)}"></td>
+                    <td class="math">Average Total Assets / Average Shareholder's Equity</td>
+                    <td>Measures the degree to which a company uses equity to finance its assets.</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <!-- Valuation Ratios Table -->
+        <table>
+            <thead>
+                <tr>
+                    <th colspan="4">Valuation Ratios</th>
+                </tr>
+                <tr>
+                    <th>Name</th>
+                    <th>Value</th>
+                    <th>Formula</th>
+                    <th>Description</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:if="${stock.vr != null and stock.vr.peBasic != null}">
+                    <td>Price-to-Earnings (Basic)</td>
+                    <td th:text="${#numbers.formatDecimal(stock.vr.peBasic, 0, 2)}"></td>
+                    <td class="math">Price per Share / Earnings per Share</td>
+                    <td>Measures the market price relative to the earnings generated by the company.</td>
+                </tr>
+                <tr th:if="${stock.vr != null and stock.vr.peDiluted != null}">
+                    <td>Price-to-Earnings (Diluted)</td>
+                    <td th:text="${#numbers.formatDecimal(stock.vr.peDiluted, 0, 2)}"></td>
+                    <td class="math">Price per Share / Diluted Earnings per Share</td>
+                    <td>Similar to the P/E (basic) ratio but accounts for potential dilution from stock options.</td>
+                </tr>
+                <tr th:if="${stock.vr != null and stock.vr.priceToSales != null}">
+                    <td>Price to Sales</td>
+                    <td th:text="${#numbers.formatDecimal(stock.vr.priceToSales, 0, 2)}"></td>
+                    <td class="math">Market Capitalization / Revenue</td>
+                    <td>Measures the price investors are willing to pay for each dollar of a company's revenue.</td>
+                </tr>
+                <tr th:if="${stock.vr != null and stock.vr.dividendPayoutRatio != null}">
+                    <td>Dividend Payout Ratio</td>
+                    <td th:text="${#numbers.formatDecimal(stock.vr.dividendPayoutRatio, 0, 2)}"></td>
+                    <td class="math">Dividends / Net Income</td>
+                    <td>Measures the proportion of earnings paid out as dividends to shareholders.</td>
+                </tr>
+                <tr th:if="${stock.vr != null and stock.vr.retentionRate != null}">
+                    <td>Retention Rate</td>
+                    <td th:text="${#numbers.formatDecimal(stock.vr.retentionRate, 0, 2)}"></td>
+                    <td class="math">1 - Dividend Payout Ratio</td>
+                    <td>Indicates the proportion of earnings retained for reinvestment back into the company.</td>
+                </tr>
+                <tr th:if="${stock.vr != null and stock.vr.sustainableGrowthRate != null}">
+                    <td>Sustainable Growth Rate</td>
+                    <td th:text="${#numbers.formatDecimal(stock.vr.sustainableGrowthRate, 0, 2)}"></td>
+                    <td class="math">Retention Rate × Return on Equity</td>
+                    <td>Represents the maximum growth rate a company can sustain without having to increase debt or equity financing.</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+</body>
+</html>

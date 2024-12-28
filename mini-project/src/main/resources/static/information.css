@@ -1,0 +1,218 @@
+body {
+    font-family: 'Arial', sans-serif;
+    background-image: url('/vector-background.jpg');
+    background-size: cover;
+    background-position: center center;
+    background-attachment: fixed;  /* Keep the background fixed while scrolling */
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;  /* we can go beyond the 100% limit */
+    line-height: 1.6;
+    color: black;
+    overflow-x: hidden; /* prevent horizontal scrolling */
+}
+
+.top-bar {
+    background-color: black;
+    color: white;
+    display: flex;
+    justify-content: space-between; /* Distribute child elements evenly */
+    align-items: center; /* aligns child elemtns along the cross axis(left to right) */
+    height: 2cm; /* Height of the black bar */
+    padding-left: 20px;
+    padding-right: 20px;
+    position: relative; /*  the child elements (error message) uses position: absolute */
+}
+
+.back-button {
+    padding: 8px 15px;
+    background-color: gray;
+    color: white;
+    border: none;
+    border-radius: 25px;
+    font-size: 15px;
+    cursor: pointer;
+    text-decoration: none;  /* Remove underline from anchor tag */
+}
+
+.back-button:hover {
+    background-color: darkgray;
+}
+
+
+/* save button styling (mostly same as Back button) */
+.save-button {
+    padding: 10px 15px;
+    background-color: gray;
+    color: white;
+    border: none;
+    border-radius: 25px;
+    font-size: 15px;
+    cursor: pointer;
+}
+
+.save-button:hover {
+    background-color: darkgray;
+}
+
+
+
+
+/* Search bar container */
+.search-container {
+    flex-grow: 1;  /* Allow the search bar to take up remaining space */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+}
+
+.search-container form {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    position: relative;
+    max-width: 400px;  /* maximum width for search input */
+}
+
+.search-container input {
+    width: 100%;  /* fill available space */
+    padding: 8px 40px 8px 10px;
+    font-size: 16px;
+    border-radius: 25px;
+    border: 1px solid gray;
+}
+
+.search-container button {
+    background-color: gray;
+    color: white;
+    border: none;
+    border-radius: 25px;
+    padding: 8px 15px;
+    cursor: pointer;
+    font-size: 15px;
+    margin-left: 10px;  /* space between input field and button */
+}
+
+.search-container button:hover {
+    background-color: darkgray;
+}
+
+.error-message {
+    margin-top: 5px;
+    color: red; 
+    font-size: 16px;  
+    font-weight: bold;
+    text-align: center;
+    position: absolute;  
+    top: 100%;
+    width: 100%;
+}
+
+
+
+
+/* Stock Information Section */
+.stock-info {
+    background-color:whitesmoke;
+    padding: 20px;
+    margin: 20px auto;
+    border-radius: 8px;
+    width: 90%;
+    max-width: 800px;
+}
+
+.stock-info h1 {
+    margin-bottom: 30px;
+    margin-top: 20px;
+    text-align: center;
+    font-size: 30px;
+    color: black;
+}
+
+.stock-info p {
+    font-size: 16px;
+    margin: 8px 0;
+}
+
+/* href inside the stock info section */
+.stock-info a {
+    color: blue;
+}
+
+
+
+table {
+    width: 90%;
+    margin: 20px auto;
+    border-collapse: collapse;
+    background-color: whitesmoke;
+    border-radius: 8px;
+    table-layout: auto; /* consistent column widths across all tables */
+}
+
+table th[colspan] {
+    border-radius: 8px 8px 0 0;
+    background-color: lightslategrey; 
+    color: whitesmoke;
+    text-align: center;
+    font-size: 20px;
+    padding: 10px 0;
+    font-weight: bold;
+}
+
+table th {
+    padding: 12px;
+    background-color: rgb(74, 74, 74);
+    color: whitesmoke;
+    font-size: 18px;
+    text-transform: uppercase;
+    text-align: center;
+}
+
+table td {
+    padding: 12px;
+}
+
+table tr:hover {
+    background-color: lightgray;
+}
+
+table .math {
+    font-family: "Courier New", sans-serif;
+    color: rgb(38, 191, 38);
+    font-weight: bold;
+}
+
+
+
+/* width for name column */
+table th:nth-child(1),
+table td:nth-child(1) {
+    width: 15%; 
+}
+
+/* width for value column */
+table th:nth-child(2),
+table td:nth-child(2) {
+    width: 5%; 
+}
+
+/* width for formula column */
+table th:nth-child(3),
+table td:nth-child(3) {
+    width: 40%; 
+}
+
+/* width for description column */
+table th:nth-child(4),
+table td:nth-child(4) {
+    width: 40%; 
+}
+
+/* extra description column styling */
+table td:nth-child(4) {
+    font-size: 17px;
+    color: rgb(92, 89, 89);
+}
+

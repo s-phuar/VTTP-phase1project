@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QuickReports</title>
+    <link rel="stylesheet" href="/login.css">
+</head>
+<body>
+
+<!-- login-container/form-input/error-message/register-link -->
+
+    <div class="login-container">
+        <h2>Portfolio Login</h2>
+        
+        <form method="POST" action="/login" data-th-object="${user}">
+
+            <!-- Email Field -->
+            <div class="form-input">
+                <label for="email">Email:</label>
+                <input type="email" name="email" id="email" placeholder="Enter your email" data-th-field="*{email}">
+                <p class="error-message" data-th-if="*{#fields.hasErrors('email')}" data-th-errors="*{email}"></p>
+            </div>
+            
+            <!-- Password Field -->
+            <div class="form-input">
+                <label for="password">Password:</label>
+                <input type="password" name="password" id="password" placeholder="Enter your password" data-th-field="*{password}">
+                <p class="error-message" data-th-if="*{#fields.hasErrors('password')}" data-th-errors="*{password}"></p>
+            </div>
+            
+            <button type="submit">Log In</button>
+        </form>
+        
+        <div class="navigation-link">
+            <p>Don't have an account? <a href="/createaccount">Create one</a></p>
+        </div>
+    </div>
+
+</body>
+</html>

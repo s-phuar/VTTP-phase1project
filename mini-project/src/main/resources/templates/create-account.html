@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Account Creation</title>
+    <link rel="stylesheet" href="/login.css">
+</head>
+<body>
+
+<!-- login-container/form-input/error-message/register-link -->
+
+    <div class="login-container">
+        <h2>Create an Account</h2>
+
+        <form method="POST" action="/createaccount" data-th-object="${user}">
+            
+            <!-- Email Field -->
+            <div class="form-input">
+                <label for="email">New Email Identification:</label>
+                <input type="email" name="email" id="email" data-th-field="*{email}" required>
+                <p data-th-if="*{#fields.hasErrors('email')}" data-th-errors="*{email}" class="error-message"></p>
+            </div>
+
+            <!-- Password Field -->
+            <div class="form-input">
+                <label for="password">New Password:</label>
+                <input type="password" name="password" id="password" data-th-field="*{password}" required>
+                <p data-th-if="*{#fields.hasErrors('password')}" data-th-errors="*{password}" class="error-message"></p>
+            </div>
+
+            <!-- Confirm Password Field -->
+            <div class="form-input">
+                <label for="password2">Confirm New Password:</label>
+                <input type="password" name="password2" id="password2" data-th-field="*{password2}" required>
+                <p data-th-if="*{#fields.hasErrors('password2')}" data-th-errors="*{password2}" class="error-message"></p>
+            </div>
+
+            <button type="submit">Create Account</button>
+        </form>
+
+        <div class="navigation-link">
+            <a href="/">Back to Login</a> 
+        </div>
+    </div>
+
+</body>
+</html>

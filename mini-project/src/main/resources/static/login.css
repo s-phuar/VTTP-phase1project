@@ -1,0 +1,103 @@
+body {
+    font-family: 'Arial', sans-serif;
+    background-image: url('/vector-background.jpg');
+    background-size: cover;
+    background-position: center center;
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    display: flex; /* flex-direction set to default of row (main axis) when we don't use it */
+    flex-direction: row; /* child elements arranged left to right */
+    justify-content: flex-end; /* aligns contents in the body along main axis, flushed to the right */
+    align-items: center; /* contents are in the middle of the cross axis(perpedicular to main axis) */
+}
+
+h2 {
+    color: white;
+    margin-bottom: 20px;  /* 20px gap from form input fields */
+    font-size: 24px;
+    text-align: center;
+}
+
+label {
+    font-size: 16px;
+    color: white;
+    margin-bottom: 8px; /* 8px gap from form input fields */
+    display: block; /* force label to sit above the input field instead of on its right */
+}
+
+input[type="email"], input[type="password"] {
+    width: 100%;
+    padding: 12px;
+    margin: 8px 0;
+    border: 1px solid gray;
+    border-radius: 4px;
+    font-size: 15px;
+    color: white; 
+    background-color: rgb(77, 75, 75);
+    box-sizing: border-box; /* padding and border incldued inside width and height calculations */
+}
+
+/* input clicked on styling */
+input[type="email"]:focus, input[type="password"]:focus {
+    outline: none;
+    border-color: white; 
+    font-size: 15px;
+}
+
+button {
+    width: 100%;
+    padding: 12px;
+    background-color: gray;
+    color: white;
+    border: none;
+    border-radius: 25px;
+    font-size: 16px;
+    cursor: pointer;
+    margin-top: 16px;
+}
+
+button:hover {
+    background-color: darkgray;
+}
+
+
+.login-container {
+    background-color: black;
+    width: 300px;
+    height: 65%; /* scales according to parent container height (the body element) */
+    padding: 30px;
+    border-radius: 15px;
+    display: flex;
+    flex-direction: column; /* child elements stacked vertically (main axis is column now) */
+    justify-content: center; /* aligns child element, justify center of the cross axis*/
+    position: static;
+    color: white;
+    margin-right: 2cm; /* 2cm margin from outside container to the browser side */
+}
+
+.form-input {
+    margin-bottom: 20px; /* 20px gap between form input fields */
+    text-align: left;
+}
+
+.navigation-link {
+    margin-top: 15px; /* 15px gap from submit button */
+    font-size: 15px;
+    text-align: center;
+}
+
+.navigation-link a { /* styling for the anchor tag */
+    color: darkgray;
+    text-decoration: none;
+}
+
+.navigation-link a:hover {
+    text-decoration: underline;
+}
+
+.error-message {
+    color: red;
+    font-size: 14px;
+    margin-top: 4px;
+}
