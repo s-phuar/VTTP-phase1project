@@ -7,9 +7,11 @@ import jakarta.validation.constraints.Pattern;
 public class User {
     //8 characters+ 1upper and lower case + 1 digit, 1 special, no whitespace
     public static final String PASSWORD_PATTERN = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}$";
+    public static final String EMAIL_PATTERN = "^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$";
 
     @NotBlank (message="Please enter your email")
     @Email (message="Please enter a valid email")
+    @Pattern(regexp = EMAIL_PATTERN, message = "Invalid email format. Email must include a domain (e.g., .com, .net).")
     private String email;
     @NotBlank (message="Please enter your password")
     @Pattern (regexp =PASSWORD_PATTERN, message = "Password must be at least 8 characters long, contain both upper and lowercase letters, include at least one digit and one special character.")
