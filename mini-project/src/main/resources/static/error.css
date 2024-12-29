@@ -1,21 +1,22 @@
 body {
-    font-family: 'Times New Roman', sans-serif;
-    background-image: url('/vector-background.jpg');
-    background-size: cover;
-    background-position: center center;
+    font-family: 'Roboto', sans-serif;
+    background-color:lightslategray;
     margin: 0;
     padding: 0;
     height: 100vh;
     display: flex;
     flex-direction: column; 
-    justify-content: flex-start; 
+    justify-content: center; 
     align-items: center; /* contents are in the middle of the cross axis(perpedicular to main axis) */
 }
 
 .error-page {
     font-size: 100px;
-    color:white;
+    font-weight: bold;
+    color:black;
     margin-bottom: 20px;
+    width: 100%;
+    text-align: center;
 }
 
 .back-button {
@@ -27,6 +28,7 @@ body {
     font-size: 15px;
     cursor: pointer;
     text-decoration: none;  /* Remove underline from anchor tag */
+    margin-top: 20px;
 }
 
 .back-button:hover {
